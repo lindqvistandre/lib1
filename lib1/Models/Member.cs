@@ -13,7 +13,7 @@ namespace Lib1.Models
         [Required]
         public string Email { get; set; }
         [Required]
-        public int Phonenumber { get; set; }  // felsök korrigera till string om ej funkar.
+        public string Phonenumber { get; set; }  // felsök korrigera till string om ej funkar.
         [Required]
         public string FirstName { get; set; }
         [Required]
