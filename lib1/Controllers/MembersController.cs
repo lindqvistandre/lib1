@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lib1.Data;
-using Lib1.Models;     // customer = member   film = book       actor = author 
+using Lib1.Models;     // customer = member  x  film = book       actor = author 
 
 namespace lib1.Controllers
 {
@@ -42,7 +42,7 @@ namespace lib1.Controllers
             return member;
         }
 
-        // PUT: api/Members/5
+        // PUT: api/members/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -100,6 +100,106 @@ namespace lib1.Controllers
             await _context.SaveChangesAsync();
 
             return member;
+        }
+
+        // POST: api/members/5/rentBook/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost("{memberId}/rentBook/{bookId}")]
+        public async Task<ActionResult<Member>> RentBook(int memberId, int bookId)
+        {
+            var member = await _context.Members
+                .SingleOrDefaultAsync(c => c.MemberId == memberId);
+
+            if (member == null)
+            {
+                return BadRequest("Member does not exist!");
+            }
+
+            // get inventory for the bookId
+            // include on book to get the title
+            // include on Rentals to check availability
+            var inventory = await _context.Inventory
+                .Include(i => i.Book)
+                .Include(i => i.Rentals)
+                .Where(i => i.BookId == bookId)
+                .ToListAsync();
+
+            // check if any of them are available
+            var availableInv = inventory.FirstOrDefault(i => i.Available);
+
+            if (availableInv == null)
+            {
+                return BadRequest("Book not avabilable for renting!");
+            }
+
+            var rental = new Rental()
+            {
+                MemberId = memberId,
+                InventoryId = availableInv.InventoryId,
+                RentalDate = DateTime.Now
+            };
+
+            _context.Rentals.Add(rental);
+            await _context.SaveChangesAsync();
+
+            return Ok($"Member {member.FirstName} rented the movie {availableInv.Book.Title} at {rental.RentalDate}");
+        }
+
+        //    // check if movie exists in inventory
+        //    var inventory = await _context.Inventory
+        //        .Where(Book => Book.BookId == BookToRent.BookId)
+        //        .Include(f => f.Rentals)
+        //        .ToListAsync();
+
+        //    // check inventory if the any are returned and available
+        //    var availableBook = inventory.FirstOrDefault(i => i.Rentals.Count == 0 || i.Rentals.Any(r => r.ReturnDate != null));
+
+        //        if(availableBook == null)
+        //        {
+        //            return NotFound();
+        //}
+
+        // POST: api/Members/5/returnBook/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost("{memberId}/returnBook/{bookId}")]
+        public async Task<ActionResult<Member>> ReturnBook(int memberId, int bookId)
+        {
+            // hämta kunden och kundens alla hyrningar.
+            var member = await _context.Members
+                .Include(c => c.Rentals)
+                .ThenInclude(r => r.Inventory)
+                .ThenInclude(i => i.Book)
+                .SingleOrDefaultAsync(c => c.MemberId == memberId);
+
+            if (member == null)
+            {
+                return BadRequest("Member does not exist!");
+            }
+
+            if (member.Rentals == null || member.Rentals.Count == 0)
+            {
+                return BadRequest("Member does not have any rentals!");
+            }
+
+            // kolla om kunden har hyrt booken med detta id
+            // har kunden hyrt två av samma book så plockas den första 
+            // eftersom FirstOrDefault används.
+            var rental = member.Rentals.FirstOrDefault(r => r.Inventory.BookId == bookId && !r.Returned);
+
+            if (rental == null)
+            {
+                return BadRequest("Member have not rented this movie.");
+            }
+
+            // har vi kommit hit så har kunden hyrt booken och den återlämnas genom att sätta returnDate
+            _context.Entry(rental).State = EntityState.Modified;
+            rental.ReturnDate = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return Ok($"Member {member.FirstName} return the movie {rental.Inventory.Book.Title} at {rental.RentalDate}");
         }
 
         private bool MemberExists(int id)
