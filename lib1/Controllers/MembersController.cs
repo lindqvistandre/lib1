@@ -137,7 +137,9 @@ namespace lib1.Controllers
             {
                 MemberId = memberId,
                 InventoryId = availableInv.InventoryId,
-                RentalDate = DateTime.Now
+                RentalDate = DateTime.Now,
+                ReturnDate = DateTime.Now.AddDays(30)  // Här ställer man in vilket returdatum det ska vara boken.  Mindre än 30 dagar så syns inget info
+
             };
 
             _context.Rentals.Add(rental);
