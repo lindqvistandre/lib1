@@ -143,22 +143,8 @@ namespace lib1.Controllers
             _context.Rentals.Add(rental);
             await _context.SaveChangesAsync();
 
-            return Ok($"Member {member.FirstName} rented the movie {availableInv.Book.Title} at {rental.RentalDate}");
+            return Ok($"Member {member.FirstName} rented the book {availableInv.Book.Title} at {rental.RentalDate}");
         }
-
-        //    // check if movie exists in inventory
-        //    var inventory = await _context.Inventory
-        //        .Where(Book => Book.BookId == BookToRent.BookId)
-        //        .Include(f => f.Rentals)
-        //        .ToListAsync();
-
-        //    // check inventory if the any are returned and available
-        //    var availableBook = inventory.FirstOrDefault(i => i.Rentals.Count == 0 || i.Rentals.Any(r => r.ReturnDate != null));
-
-        //        if(availableBook == null)
-        //        {
-        //            return NotFound();
-        //}
 
         // POST: api/Members/5/returnBook/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -190,7 +176,7 @@ namespace lib1.Controllers
 
             if (rental == null)
             {
-                return BadRequest("Member have not rented this movie.");
+                return BadRequest("Member have not rented this book.");
             }
 
             // har vi kommit hit så har kunden hyrt booken och den återlämnas genom att sätta returnDate
@@ -199,7 +185,7 @@ namespace lib1.Controllers
 
             await _context.SaveChangesAsync();
 
-            return Ok($"Member {member.FirstName} return the movie {rental.Inventory.Book.Title} at {rental.RentalDate}");
+            return Ok($"Member {member.FirstName} return the book {rental.Inventory.Book.Title} at {rental.RentalDate}");
         }
 
         private bool MemberExists(int id)
