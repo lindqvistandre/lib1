@@ -17,11 +17,11 @@ namespace lib1.Controllers
         public OverduesController(Lib1DbContext context)
         {
             _context = context;
-        }
+        }   
 
         public async Task<IActionResult> Index() { 
-            var bokbibliotekContext = _context.Rentals.Where(b => b.ReturnDate < DateTime.Now).Include(b => b.Book).Include(b => b.Member); 
-            return View(await bokbibliotekContext.ToListAsync()); }
+            var LibraryContext = _context.Rentals.Where(b => b.ReturnDate < DateTime.Now).Include(b => b.Book).Include(b => b.Member); 
+            return View(await LibraryContext.ToListAsync()); }
 
     }
 }

@@ -6,50 +6,45 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
-<h1>Index</h1>
+<h1>Försenade inlämningar</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<table class="table" style="background-color:white;">
+    <thead class="thead-dark">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RentalDate)
+                BokTitel
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReturnDate)
+                ISBN
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Inventory)
+                Låntagare
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Member)
+                Telefon
             </th>
-            <th></th>
+
+            <th>
+                Inlämningsdatum
+            </th>
         </tr>
     </thead>
+
+
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RentalDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReturnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Inventory.InventoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.RentalId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.RentalId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.RentalId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Book.Title</td>
+                <td>@item.Book.Isbn</td>
+                <td>@item.Member.FirstName</td>
+                <td>@item.Member.Phonenumber</td>
+                <td>@item.ReturnDate</td>
+
+
+            </tr>
+        }
     </tbody>
+
 </table>

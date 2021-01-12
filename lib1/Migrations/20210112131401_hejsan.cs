@@ -104,12 +104,19 @@ namespace lib1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InventoryId = table.Column<int>(nullable: false),
                     MemberId = table.Column<int>(nullable: false),
+                    BookId = table.Column<int>(nullable: false),
                     RentalDate = table.Column<DateTime>(nullable: false),
                     ReturnDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rentals", x => x.RentalId);
+                    table.ForeignKey(
+                        name: "FK_Rentals_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Rentals_Inventory_InventoryId",
                         column: x => x.InventoryId,
@@ -132,6 +139,11 @@ namespace lib1.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Inventory_BookId",
                 table: "Inventory",
+                column: "BookId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rentals_BookId",
+                table: "Rentals",
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
