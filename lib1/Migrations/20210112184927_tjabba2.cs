@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace lib1.Migrations
 {
-    public partial class hejsan : Migration
+    public partial class tjabba2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,9 +104,9 @@ namespace lib1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     InventoryId = table.Column<int>(nullable: false),
                     MemberId = table.Column<int>(nullable: false),
-                    BookId = table.Column<int>(nullable: false),
                     RentalDate = table.Column<DateTime>(nullable: false),
-                    ReturnDate = table.Column<DateTime>(nullable: true)
+                    ReturnDate = table.Column<DateTime>(nullable: true),
+                    BookId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -116,7 +116,7 @@ namespace lib1.Migrations
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "BookId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Rentals_Inventory_InventoryId",
                         column: x => x.InventoryId,

@@ -12,7 +12,7 @@ namespace Lib1.Models
         public int RentalId { get; set; }
         public int InventoryId { get; set; }
         public int MemberId { get; set; }
-        public int BookId { get; set; } // addad 11/1
+       // public int BookId { get; set; } // addad 11/1
         public DateTime RentalDate { get; set; }
         public DateTime? ReturnDate { get; set; }
 
@@ -26,7 +26,7 @@ namespace Lib1.Models
         {
             get
             {
-                // är return inte null så betyder det att filmen inte är återlämnad
+                // är return inte null så betyder det att boken inte är återlämnad
                 return ReturnDate != null;
             }
         }

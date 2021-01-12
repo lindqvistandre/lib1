@@ -132,7 +132,7 @@ namespace lib1.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookId")
+                    b.Property<int?>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("InventoryId")
@@ -186,9 +186,7 @@ namespace lib1.Migrations
                 {
                     b.HasOne("Lib1.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookId");
 
                     b.HasOne("Lib1.Models.Inventory", "Inventory")
                         .WithMany("Rentals")

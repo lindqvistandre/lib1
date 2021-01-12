@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lib1.Data;
-using Lib1.Models;     // customer = member  x  film = book       actor = author 
+using Lib1.Models;     
 
 namespace lib1.Controllers
 {

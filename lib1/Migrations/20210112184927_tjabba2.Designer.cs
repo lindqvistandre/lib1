@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace lib1.Migrations
 {
     [DbContext(typeof(Lib1DbContext))]
-    [Migration("20210112131401_hejsan")]
-    partial class hejsan
+    [Migration("20210112184927_tjabba2")]
+    partial class tjabba2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -134,7 +134,7 @@ namespace lib1.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookId")
+                    b.Property<int?>("BookId")
                         .HasColumnType("int");
 
                     b.Property<int>("InventoryId")
@@ -188,9 +188,7 @@ namespace lib1.Migrations
                 {
                     b.HasOne("Lib1.Models.Book", "Book")
                         .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BookId");
 
                     b.HasOne("Lib1.Models.Inventory", "Inventory")
                         .WithMany("Rentals")
