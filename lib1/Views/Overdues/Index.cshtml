@@ -14,7 +14,7 @@
             <th>
                 Boktitel
             </th>
-           
+
             <th>
                 Medlem
             </th>
@@ -22,9 +22,11 @@
             <th>
                 Telefon
             </th>
-
             <th>
-                Inlämningsdatum
+                Startdatum för lån av bok
+            </th>
+            <th>
+                Slutdatum för retur av bok
             </th>
         </tr>
     </thead>
@@ -35,8 +37,9 @@
         {
             <tr>
                 <td>@item.Inventory.Book.Title</td>
-                <td>@item.Member.FirstName</td>
+                <td>@item.Member.FirstName @item.Member.LastName</td>
                 <td>@item.Member.Phonenumber</td>
+                <td>@item.RentalDate</td>
                 <td>@item.ReturnDate</td>
 
 

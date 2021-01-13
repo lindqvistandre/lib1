@@ -31,13 +31,13 @@ namespace Lib1.Data
                 .HasOne(sc => sc.Book)
                 .WithMany(s => s.BookAuthors)
                 .HasForeignKey(sc => sc.BookId);
-            //.OnDelete(DeleteBehavior.Restrict)
+            
 
             modelbuilder.Entity<BookAuthor>()
                 .HasOne(sc => sc.Author)
                 .WithMany(c => c.BookAuthors)
                 .HasForeignKey(sc => sc.AuthorId);
-            //.OnDelete(DeleteBehavior.Restrict)
+            
         }
     }
 }
