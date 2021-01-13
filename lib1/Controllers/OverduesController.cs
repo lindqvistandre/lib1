@@ -20,8 +20,11 @@ namespace lib1.Controllers
         }   
 
         public async Task<IActionResult> Index() { 
-            var Lib1DbContext = _context.Rentals.Where(b => b.ReturnDate < DateTime.Now).Include(b => b.Book).Include(b => b.Member); 
+            var Lib1DbContext = _context.Rentals.Where(b => b.RentalDate.AddDays(30) < DateTime.Now).Include(b => b.Inventory) .ThenInclude 
+                (b => b.Book).
+                Include(b => b.Member); 
             return View(await Lib1DbContext.ToListAsync()); }
 
     }
 }
+// b.ReturnDate

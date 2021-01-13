@@ -14,9 +14,7 @@
             <th>
                 Boktitel
             </th>
-            <th>
-                ISBN
-            </th>
+           
             <th>
                 Medlem
             </th>
@@ -36,8 +34,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Book.Title</td>
-                <td>@item.Book.Isbn</td>
+                <td>@item.Inventory.Book.Title</td>
                 <td>@item.Member.FirstName</td>
                 <td>@item.Member.Phonenumber</td>
                 <td>@item.ReturnDate</td>
