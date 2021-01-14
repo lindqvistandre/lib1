@@ -10,7 +10,7 @@ namespace Lib1.Models
     {
         [Key]
         public int MemberId { get; set; }
-        [Required]
+        
         public string Email { get; set; }
         [Required]
         public string Phonenumber { get; set; }  // felsök korrigera till string om ej funkar.
