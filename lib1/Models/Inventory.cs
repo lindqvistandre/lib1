@@ -13,7 +13,8 @@ namespace Lib1.Models
         public int BookId { get; set; }
         public Book Book { get; set; }
         public List<Rental> Rentals { get; set; }
-       
+        // computed property. Räknas ut from andra properties
+        // saknas setter så kommer EF ignorera vid add migrations
         public bool Available
         {
             get

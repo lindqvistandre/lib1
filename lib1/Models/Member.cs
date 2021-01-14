@@ -10,6 +10,7 @@ namespace Lib1.Models
     {
         [Key]
         public int MemberId { get; set; }
+        [Required]
         public string Email { get; set; }
         [Required]
         public string Phonenumber { get; set; }  // felsök korrigera till string om ej funkar.
@@ -17,19 +18,6 @@ namespace Lib1.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
-        public int LibraryCard { get; set; }
         public List<Rental> Rentals { get; set; }
     }
 }
-//       var rental = new Rental()
-
-
-// fanns i members controll 
-// {
-//    MemberId = memberId,
-//                InventoryId = availableInv.InventoryId,
-//                RentalDate = DateTime.Now,
-//               // ReturnDate = DateTime.Now.AddDays(30)
-
-//            };

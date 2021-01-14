@@ -4,14 +4,16 @@ using Lib1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace lib1.Migrations
 {
     [DbContext(typeof(Lib1DbContext))]
-    partial class Lib1DbContextModelSnapshot : ModelSnapshot
+    [Migration("20210112184927_tjabba2")]
+    partial class tjabba2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,9 +142,6 @@ namespace lib1.Migrations
 
                     b.Property<int>("MemberId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("RentDue")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("RentalDate")
                         .HasColumnType("datetime2");

@@ -28,7 +28,7 @@ namespace Lib1.Models
             get
             {
                 // är return inte null så betyder det att boken inte är återlämnad
-                return ReturnDate == null ? false : true;        // 
+                return ReturnDate != null;   // 
             }
         }
     }
