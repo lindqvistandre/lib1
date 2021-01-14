@@ -19,5 +19,7 @@ namespace Lib1.Models
         [Required]
         public int Rating { get; set; }
         public List<BookAuthor> BookAuthors { get; set; }
+
+        
     }
 }

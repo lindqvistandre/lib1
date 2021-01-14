@@ -18,7 +18,7 @@ namespace Lib1.Models
 
         public Inventory Inventory { get; set; }
         public Member Member { get; set; }
-        public Book Book { get; set; }  // addad 11/1
+        public Book Book { get; set; }  
         
        
         public bool Returned
@@ -26,7 +26,7 @@ namespace Lib1.Models
             get
             {
                 // är return inte null så betyder det att boken inte är återlämnad
-                return ReturnDate == null ? false : true;
+                return ReturnDate != null;
             }
         }
     }
