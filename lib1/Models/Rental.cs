@@ -16,9 +16,11 @@ namespace Lib1.Models
         public DateTime RentalDate { get; set; }
         public DateTime? ReturnDate { get; set; }
 
+        public DateTime RentDue { get; set; }
+
         public Inventory Inventory { get; set; }
         public Member Member { get; set; }
-        public Book Book { get; set; }  
+        public Book Book { get; set; }          
         
        
         public bool Returned
@@ -26,7 +28,7 @@ namespace Lib1.Models
             get
             {
                 // är return inte null så betyder det att boken inte är återlämnad
-                return ReturnDate != null;
+                return ReturnDate == null ? false : true;
             }
         }
     }
