@@ -51,23 +51,21 @@ Ifall databas, databasnamn, användarnamn, eller lösenord önskas att ändras, 
 
 <h1> Använd API:et med Postman</h1> <br>
 I Postman, klicka på plustecknet under titeln 'My Workspace'. <br>
-Starta programet som startats  i Visual Studio och kopiera url:en från webbläsaren som öppnas. <br>
-Klistra in url:en i sökfältet i Postman. (i detta fall, http://localhost:4070/overdues) <br> 
+Starta applikationen i Visual Studio och kopiera url:en från webbläsaren som öppnas. <br>
+Klistra in url:en i sökfältet i Postman. <br>
 Genvägar <br>
 I slutet av url:en, klistra in dessa för att få snabb åtkomst till vissa av API:ets funktioner. Entiteternas properties går att komma åt genom ett 'Get' anrop, eller i 'Models' mappen i Visual Studio. <br>
 
 /api/books -- Hämta, uppdatera, lägg till, och ta bort böcker. <br>
 /api/authors -- Hämta, uppdatera, lägg till, och ta bort författare. <br>
-/api/members -- Hämta, uppdatera, lägg till, och ta bort kunder. <br>
-/api/rentals -- Hämta, uppdatera, lägg till, och ta bort bokuthyrningar. <br>
+/api/customers -- Hämta, uppdatera, lägg till, och ta bort kunder. <br>
+/api/rentbooks -- Hämta, uppdatera, lägg till, och ta bort bokuthyrningar. <br>
 
 I dessa behövs 'CustomerId' och 'BookId' av kund och bok bytas ut mot motsvarande Id:n. <br>
 
-/api/members/(membersid)/rentbook/(BookId) -- 
-http://localhost:4070/api/Members/1/rentbook/1       = Skapar ny uthyrning, medlem 1, lånar bok 1
+/api/customers/(CustomerId)/rentbook/(BookId) -- Skapa nya uthyrning och uppdatera lagersaldot i realtid. <br>
+/api/customers/(CustomerId)/returnbook/(BookId) -- Lämna in uthyrningar och uppdatera lagersaldot i realtid. <br>
 
-/api/members/(membersid)/returnbook/(BookId) -- Lämna in uthyrningar och uppdatera lagersaldot i realtid. <br>
-Exempel: http://localhost:4070/api/Members/1/returnbook/1     =   medlem 1, returnerar bok 1. 
 
 Använda paket <br>
 Microsoft ASP.Net Core MVC NewtonsoftJson <br>
