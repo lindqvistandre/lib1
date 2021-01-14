@@ -1,12 +1,5 @@
-# lib1a
 # Library Web Api
   - Ett Web Api skapat för hantera ett biblioteks bokhantering så som, lägga till böcker, utlåningar, retur av böcker.
-```
-csharp kod
-teex här
-o här
-```
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 # Verktyg
 Dessa program nedan kommer behövas installeras för att få allt fungera samt kunna hantera saker på ett bra sätt.
 
@@ -27,59 +20,58 @@ Dessa program nedan kommer behövas installeras för att få allt fungera samt k
 <br>
 [Postman](https://www.postman.com/downloads/) 
 
+<br>
+<h1> Kom igång med Microsoft Visual Studio</h1><br>
 
-Kom igång med Microsoft Visual Studio VS
-Klona Git-repot via hemsidan eller kommandotolken och placera projektet där den önskas.
+Klona Git-repot via hemsidan eller kommandotolken och placera projektet där den önskas. <br>
 
-För att kunna använda 'dotnet' kommand-linjen så måste .NET Core CLI installeras. Det görs via inbyggda kommandotolken i Visual Studio genom att skriva:
+För att kunna använda 'dotnet' kommand-linjen så måste .NET Core CLI installeras. Det görs via inbyggda kommandotolken i Visual Studio genom att skriva: <br>
 
-dotnet tool install --global dotnet-ef
+```
+dotnet tool install --global dotnet-ef 
+```
+<br>
+<br>
+<h1> Kom igång med Microsoft SQL Management Studio Management Studio </h1> 
+I Management Studio, logga in på den lokala databasen '(localdb)\MSSQLLocalDB'.<br>
+<br Skapa en tom databas kallad 'lib1'. <br>
+Skapa en ny användare med namn 'lib', och lösenord '123'.<br>
+Kryssa i rutan 'SQL Server Authentication', och kryssa ur rutan 'Enforce Password Policy'. <br>
+Sätt 'default database' till 'librarywebapi' och spara sedan användaren. <br>
+Öppna projektet i Visual Studio och bygg det. <br>
+Öppna 'Package Manager Console', genom sökfältet eller under 'View > Other Windows > Package Manager Console'. <br>
+Lokalisera till projektets directory och skriv in 'dotnet ef migrations add init'.   <br>
+När kommandot är klart, skriv 'dotnet ef database update' i samma konsolfönster. <br>
+Tryck 'refresh' på databasmappen i Management Studio och resultatet dyker upp. <br>
+Ifall databas, databasnamn, användarnamn, eller lösenord önskas att ändras, så går att göra i applikationens 'appsettings.json fil som nedan. Alla detaljer måste stämma överens i Management Studio och Visual Studio för att applikationen ska fungera.  <br>
 
-Kom igång med Microsoft SQL Management Studio Management Studio
-I Management Studio, logga in på den lokala databasen '(localdb)\MSSQLLocalDB'.
-Skapa en tom databas kallad 'librarywebapi'.
-Skapa en ny användare med namn 'guest', och lösenord 'password'.
-Kryssa i rutan 'SQL Server Authentication', och kryssa ur rutan 'Enforce Password Policy'.
-Sätt 'default database' till 'librarywebapi' och spara sedan användaren.
-Öppna projektet i Visual Studio och bygg det.
-Öppna 'Package Manager Console', genom sökfältet eller under 'View > Other Windows > Package Manager Console'.
-Lokalisera till projektets directory och skriv in 'dotnet ef migrations add init'.
-När kommandot är klart, skriv 'dotnet ef database update' i samma konsolfönster.
-Tryck 'refresh' på databasmappen i Management Studio och resultatet dyker upp.
-Ifall databas, databasnamn, användarnamn, eller lösenord önskas att ändras, så går att göra i applikationens 'appsettings.json fil som nedan. Alla detaljer måste stämma överens i Management Studio och Visual Studio för att applikationen ska fungera.
+```
+{ "ConnectionStrings": { "DefaultConnection": "Server=(localdb)\MSSQLLocalDB; Database=lib1; Trusted_Connection=true; User Id=lib1; Password=123" }, <br>
+```
 
-{ "ConnectionStrings": { "DefaultConnection": "Server=(localdb)\MSSQLLocalDB; Database=librarywebapi; Trusted_Connection=true; User Id=guest; Password=password" },
+<h1> Använd API:et med Postman</h1> <br>
+I Postman, klicka på plustecknet under titeln 'My Workspace'. <br>
+Starta applikationen i Visual Studio och kopiera url:en från webbläsaren som öppnas. <br>
+Klistra in url:en i sökfältet i Postman. <br>
+Genvägar <br>
+I slutet av url:en, klistra in dessa för att få snabb åtkomst till vissa av API:ets funktioner. Entiteternas properties går att komma åt genom ett 'Get' anrop, eller i 'Models' mappen i Visual Studio. <br>
 
-Använd API:et med Postman Management Studio
-I Postman, klicka på plustecknet under titeln 'My Workspace'.
-Starta applikationen i Visual Studio och kopiera url:en från webbläsaren som öppnas.
-Klistra in url:en i sökfältet i Postman.
-Genvägar
-I slutet av url:en, klistra in dessa för att få snabb åtkomst till vissa av API:ets funktioner. Entiteternas properties går att komma åt genom ett 'Get' anrop, eller i 'Models' mappen i Visual Studio.
+/api/books -- Hämta, uppdatera, lägg till, och ta bort böcker. <br>
+/api/authors -- Hämta, uppdatera, lägg till, och ta bort författare. <br>
+/api/customers -- Hämta, uppdatera, lägg till, och ta bort kunder. <br>
+/api/rentbooks -- Hämta, uppdatera, lägg till, och ta bort bokuthyrningar. <br>
 
-/api/books -- Hämta, uppdatera, lägg till, och ta bort böcker.
-/api/authors -- Hämta, uppdatera, lägg till, och ta bort författare.
-/api/customers -- Hämta, uppdatera, lägg till, och ta bort kunder.
-/api/rentbooks -- Hämta, uppdatera, lägg till, och ta bort bokuthyrningar.
+I dessa behövs 'CustomerId' och 'BookId' av kund och bok bytas ut mot motsvarande Id:n. <br>
 
-I dessa behövs 'CustomerId' och 'BookId' av kund och bok bytas ut mot motsvarande Id:n.
+/api/customers/(CustomerId)/rentbook/(BookId) -- Skapa nya uthyrning och uppdatera lagersaldot i realtid. <br>
+/api/customers/(CustomerId)/returnbook/(BookId) -- Lämna in uthyrningar och uppdatera lagersaldot i realtid. <br>
 
-/api/customers/(CustomerId)/rentbook/(BookId) -- Skapa nya uthyrning och uppdatera lagersaldot i realtid.
-/api/customers/(CustomerId)/returnbook/(BookId) -- Lämna in uthyrningar och uppdatera lagersaldot i realtid.
 
-Använda verktyg
-ASP.Net Core
-Entity Framework
-Microsoft Management Studio 18
-Postman
-Visual Paradigm
-Visual Studio 2019
-
-Använda paket
-Microsoft ASP.Net Core MVC NewtonsoftJson
-Microsoft Entity Framework Core
-Microsoft Entity Framework Core Design
-Microsoft Entity Framework Core SQLite
-Microsoft Entity Framework Core SQLServer
-Microsoft Entity Framework Core Tools
-Microsoft Visual Web CodeGeneration Design
+Använda paket <br>
+Microsoft ASP.Net Core MVC NewtonsoftJson <br>
+Microsoft Entity Framework Core <br>
+Microsoft Entity Framework Core Design <br>
+Microsoft Entity Framework Core SQLite <br>
+Microsoft Entity Framework Core SQLServer <br>
+Microsoft Entity Framework Core Tools <br>
+Microsoft Visual Web CodeGeneration Design <br>
