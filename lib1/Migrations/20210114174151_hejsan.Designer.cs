@@ -4,14 +4,16 @@ using Lib1.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace lib1.Migrations
 {
     [DbContext(typeof(Lib1DbContext))]
-    partial class Lib1DbContextModelSnapshot : ModelSnapshot
+    [Migration("20210114174151_hejsan")]
+    partial class hejsan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

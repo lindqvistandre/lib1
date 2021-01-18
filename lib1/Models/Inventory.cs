@@ -25,7 +25,7 @@ namespace Lib1.Models
                 // ifall den aldrig hyrts ut är den tillgänglig!
                 else if (Rentals.Count == 0)
                     return true;
-                // har alla filmer lämnats tillbaka är den tillgänglig
+                // har alla böcker lämnats tillbaka är den tillgänglig
                 else if (Rentals.All(r => r.Returned))
                     return true;
                 // annars är den inte tillgänglig

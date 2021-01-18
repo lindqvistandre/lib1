@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Lib1.Data;
-using Lib1.Models;     // customer = member  x  film = book       actor = author 
+using Lib1.Models;     
 
 namespace lib1.Controllers
 {
@@ -138,7 +138,7 @@ namespace lib1.Controllers
                 MemberId = memberId,
                 InventoryId = availableInv.InventoryId,
                 RentalDate = DateTime.Now,
-                ReturnDate = DateTime.Now.AddDays(30)  // Här ställer man in vilket returdatum det ska vara boken.  Mindre än 30 dagar så syns inget info
+               // ReturnDate = DateTime.Now.AddDays(30)
 
             };
 
@@ -154,7 +154,7 @@ namespace lib1.Controllers
         [HttpPost("{memberId}/returnBook/{bookId}")]
         public async Task<ActionResult<Member>> ReturnBook(int memberId, int bookId)
         {
-            // hämta kunden och kundens alla hyrningar.
+            // Hämtar kunden och alla dens lån.
             var member = await _context.Members
                 .Include(c => c.Rentals)
                 .ThenInclude(r => r.Inventory)
@@ -171,9 +171,7 @@ namespace lib1.Controllers
                 return BadRequest("Member does not have any rentals!");
             }
 
-            // kolla om kunden har hyrt booken med detta id
-            // har kunden hyrt två av samma book så plockas den första 
-            // eftersom FirstOrDefault används.
+            // kolla om kunden har hyrt booken med detta id.
             var rental = member.Rentals.FirstOrDefault(r => r.Inventory.BookId == bookId && !r.Returned);
 
             if (rental == null)
