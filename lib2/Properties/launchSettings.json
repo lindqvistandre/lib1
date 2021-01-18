@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "lib1": {
+    "lib2": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "overdues",
